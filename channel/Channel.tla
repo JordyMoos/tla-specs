@@ -4,7 +4,12 @@ EXTENDS Integers
 CONSTANT Data
 VARIABLE chan
 
-TypeInvariant == chan \in [val: Data, rdy: {0, 1}, ack: {0, 1}]
+TypeInvariant ==
+  chan \in
+    [ val: Data
+    , rdy: {0, 1}
+    , ack: {0, 1}
+    ]
 -----------------------------------------------------------------------------
 
 Init ==
@@ -35,5 +40,5 @@ Spec == Init /\ [][Next]_chan
 THEOREM Spec => []TypeInvariant
 =============================================================================
 \* Modification History
-\* Last modified Fri Feb 02 10:38:45 CET 2018 by jordy
+\* Last modified Fri Feb 02 10:40:16 CET 2018 by jordy
 \* Created Fri Feb 02 10:13:28 CET 2018 by jordy
