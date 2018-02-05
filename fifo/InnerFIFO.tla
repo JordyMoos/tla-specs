@@ -21,16 +21,27 @@ Init ==
   /\ queue = <<>>
 
 
-SSend(msg) == TRUE
+SSend(msg) ==
+  /\ InChan ! Send(msg)
+  /\ UNCHANGED <<out, queue>>
 
 
-BufRcv == TRUE
+BufRcv ==
+  /\ InChan ! Rcv
+  /\ queue' = Append(queue, in.val)
+  /\ UNCHANGED out
 
 
-BufSend == TRUE
+BufSend ==
+  /\ queue # <<>>
+  /\ OutChan ! Send(Head(queue))
+  /\ queue' = Tail(queue)
+  /\ UNCHANGED in
 
 
-RRcv == TRUE
+RRcv ==
+  /\ OutChan ! Rcv
+  /\ UNCHANGED <<in, queue>>
 
 
 Next ==
@@ -40,7 +51,11 @@ Next ==
     \/ RRcv
 
 
+Spec == Init /\ [][Next]_<<in, out, queue>>
+
+-----------------------------------------------------------------------------
+THEOREM Spec => TypeInvariant
 =============================================================================
 \* Modification History
-\* Last modified Fri Feb 02 11:55:41 CET 2018 by jordy
+\* Last modified Mon Feb 05 09:07:08 CET 2018 by jordy
 \* Created Fri Feb 02 11:27:30 CET 2018 by jordy

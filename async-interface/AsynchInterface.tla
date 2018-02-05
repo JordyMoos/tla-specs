@@ -35,5 +35,5 @@ Spec == Init /\ [][Next]_<<val, rdy, ack>>
 THEOREM Spec => []TypeInvariant
 =============================================================================
 \* Modification History
-\* Last modified Fri Feb 02 09:58:40 CET 2018 by jordy
+\* Last modified Mon Feb 05 08:08:24 CET 2018 by jordy
 \* Created Fri Feb 02 09:22:48 CET 2018 by jordy
